@@ -7,10 +7,27 @@ using UnityEngine.InputSystem;
 public class ActivateTeleportationRay : MonoBehaviour
 {
     public GameObject rightTeleportation;
+    public GameObject leftTeleportation;
 
     public InputActionProperty rightActivate;
+    public InputActionProperty leftActivate;
+
+    public InputActionProperty leftCancel;
+    public InputActionProperty rightCancel;
+
+    public XRRayInteractor leftRay;
+    public XRRayInteractor rightRay;
+
+
     void Update()
     {
-        rightTeleportation.SetActive(rightActivate.action.ReadValue<float>() > 0.1f);
+        bool isRightHovering = rightRay.TryGetHitInfo(out Vector3 RightPos, out Vector3 RightNormal, out int RightNumber, out bool RightValid);
+        
+        
+        rightTeleportation.SetActive(!isRightHovering && rightCancel.action.ReadValue<float>() == 0 && rightActivate.action.ReadValue<float>() > 0.1f);
+
+        bool isLeftHovering = leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
+
+        leftTeleportation.SetActive(!isLeftHovering && leftCancel.action.ReadValue<float>() == 0f && leftActivate.action.ReadValue<float>() > 0.1f);
     }
 }
