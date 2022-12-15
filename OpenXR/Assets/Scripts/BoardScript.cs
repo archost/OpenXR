@@ -16,6 +16,9 @@ public class BoardScript : MonoBehaviour
     private TextMeshProUGUI orderText;
 
     [SerializeField]
+    private TextMeshProUGUI timerText;
+
+    [SerializeField]
     private StageController stageController;
 
     [SerializeField]
@@ -40,6 +43,24 @@ public class BoardScript : MonoBehaviour
     private void OnDestroy()
     {
         stageController.OnStageSwitch -= OnStageSwitch;
+    }
+
+    private void Update()
+    {
+        if (TimerScript.IsRunning)
+        {
+            timerText.text = TimerScript.CurrentTimeFormat;
+        }
+    }
+
+    public void StartTimer()
+    {
+        TimerScript.StartTimer(this.gameObject);
+    }
+
+    public void StopTimer()
+    {
+        TimerScript.StopTimer(this.gameObject);
     }
 
     private void ResetScrollPosition()
