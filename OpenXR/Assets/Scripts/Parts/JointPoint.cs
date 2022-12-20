@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
 public class JointPoint : MonoBehaviour
@@ -12,6 +13,11 @@ public class JointPoint : MonoBehaviour
     [SerializeField]
     private int suitablePartID;
 
+    [SerializeField]
+    private Vector3 offset = Vector3.zero;
+
+    public UnityAction<Part, Vector3> OnPartAttached;
+
     private void Awake()
     {
         col = GetComponent<Collider>();
@@ -21,7 +27,11 @@ public class JointPoint : MonoBehaviour
     {
         if (other.TryGetComponent(out Part p))
         {
-            Debug.Log($"Met Part#{p.PartID}");
+            if (p.PartID == suitablePartID)
+            {
+                OnPartAttached?.Invoke(p, transform.localPosition + offset);
+                gameObject.SetActive(false);
+            }
         } 
     }
 }

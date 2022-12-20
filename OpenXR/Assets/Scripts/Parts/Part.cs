@@ -8,6 +8,7 @@ public class Part : MonoBehaviour
 {
     private Outline outline;
     private Rigidbody rb;
+    private Animator animator;
     //private Collider col;
 
     public int PartID { get; private set; }
@@ -21,12 +22,43 @@ public class Part : MonoBehaviour
     [SerializeField]
     private PartData partData;
 
+    [SerializeField]
+    private int action;
+
     public void ToogleJointPoint(int index)
     {
         if (index >= 0 && index < jointPoints.Count)
         {
             jointPoints[index].gameObject.SetActive(true);
+            jointPoints[index].OnPartAttached += AttachPart;
         }
+    }
+
+    public void AttachPart(Part part, Vector3 offset)
+    {
+        Debug.Log($"Part attaching {part.PartID}, {offset}");
+        part.transform.parent = transform;
+        part.transform.localPosition = offset;
+        part.Attach();
+    }
+
+    public void Attach()
+    {
+        UpdateState(PartState.Fixed);
+    }
+
+    private void Update()
+    {
+        //TODO rework
+        if (action != 0) 
+        { 
+            if (animator != null) 
+            {
+                animator.enabled = true;
+                animator.SetInteger("action", action); 
+            } 
+        }
+        
     }
 
     [ContextMenu("Test")]
@@ -35,9 +67,12 @@ public class Part : MonoBehaviour
         ToogleJointPoint(0);
     }
 
-    private void Awake()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
+        //TODO rework
+        if(animator!= null) animator.enabled = false;
         //col = GetComponent<Collider>();
 
         outline = GetComponent<Outline>();
@@ -54,11 +89,16 @@ public class Part : MonoBehaviour
             PartID = partData.ID;
             
         }
+        foreach (var p in jointPoints)
+        {
+            p.gameObject.SetActive(false);
+        }
         UpdateState(state);
     }
 
     private void UpdateState(PartState newState)
     {
+        state = newState;
         switch (newState)
         {
             case PartState.Idle:

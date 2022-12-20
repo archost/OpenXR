@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class StageController : MonoBehaviour
 {
@@ -20,8 +21,7 @@ public class StageController : MonoBehaviour
         } 
     }
 
-    public delegate void StageSwitchHandler(Stage stage);
-    public event StageSwitchHandler OnStageSwitch;
+    public UnityAction<Stage> OnStageSwitch;
 
     private void Start()
     {
