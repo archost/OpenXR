@@ -18,11 +18,9 @@ public class ActivateTeleportationRay : MonoBehaviour
     public XRRayInteractor leftRay;
     public XRRayInteractor rightRay;
 
-
     void Update()
     {
         bool isRightHovering = rightRay.TryGetHitInfo(out Vector3 RightPos, out Vector3 RightNormal, out int RightNumber, out bool RightValid);
-        
         
         rightTeleportation.SetActive(!isRightHovering && rightCancel.action.ReadValue<float>() == 0 && rightActivate.action.ReadValue<float>() > 0.1f);
 

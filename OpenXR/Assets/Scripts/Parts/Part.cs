@@ -11,6 +11,7 @@ public class Part : MonoBehaviour
     private Animator animator;
     //private Collider col;
 
+    public AudioSource installedSound;
     public int PartID { get; private set; }
 
     [SerializeField]
@@ -47,18 +48,15 @@ public class Part : MonoBehaviour
         UpdateState(PartState.Fixed);
     }
 
+    public void Install()
+    {
+        UpdateState(PartState.Installed);
+        installedSound.Play();
+    }
+
     private void Update()
     {
-        //TODO rework
-        if (action != 0) 
-        { 
-            if (animator != null) 
-            {
-                animator.enabled = true;
-                animator.SetInteger("action", action); 
-            } 
-        }
-        
+
     }
 
     [ContextMenu("Test")]
