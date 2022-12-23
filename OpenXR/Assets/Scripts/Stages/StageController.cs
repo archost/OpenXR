@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -45,16 +44,5 @@ public class StageController : MonoBehaviour
     public void PrevStage()
     {
         // work in progress
-    }
-
-    public void SetStage(int index)
-    {
-        if (stages.Count < index)
-        {
-            // set initial positions for objects
-            // set final positions for objects
-            currentStageIndex = index;
-            OnStageSwitch?.Invoke(CurrentStage);
-        }
     }
 }

@@ -8,10 +8,10 @@ public class Part : MonoBehaviour
 {
     private Outline outline;
     private Rigidbody rb;
-    private Animator animator;
+    private AudioSource audioSource;
     //private Collider col;
+    private PartAnimationController animationController;
 
-    public AudioSource installedSound;
     public int PartID { get; private set; }
 
     [SerializeField]
@@ -22,9 +22,6 @@ public class Part : MonoBehaviour
 
     [SerializeField]
     private PartData partData;
-
-    [SerializeField]
-    private int action;
 
     public void ToogleJointPoint(int index)
     {
@@ -37,27 +34,23 @@ public class Part : MonoBehaviour
 
     public void AttachPart(Part part, Vector3 offset)
     {
-        Debug.Log($"Part attaching {part.PartID}, {offset}");
+        Debug.Log($"Part attaching {part.PartID}");
         part.transform.parent = transform;
         part.transform.localPosition = offset;
         part.transform.localEulerAngles = Vector3.zero;
-        part.Attach(part, offset);
+        part.Attach();
     }
 
-    public void Attach(Part part, Vector3 offset)
+    public void Attach()
     {
         UpdateState(PartState.Fixed);
+        if (animationController != null) animationController.ToogleAnimator();
     }
 
     public void Install()
     {
         UpdateState(PartState.Installed);
-        installedSound.Play();
-    }
-
-    private void Update()
-    {
-
+        if (audioSource != null) audioSource.Play();
     }
 
     [ContextMenu("Test")]
@@ -69,9 +62,8 @@ public class Part : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        //TODO rework
-        if (animator != null) animator.enabled = false;
+        audioSource = GetComponent<AudioSource>();
+        animationController = GetComponent<PartAnimationController>();
         //col = GetComponent<Collider>();
 
         outline = GetComponent<Outline>();

@@ -15,16 +15,13 @@ public class ActivateTeleportationRay : MonoBehaviour
     public InputActionProperty leftCancel;
     public InputActionProperty rightCancel;
 
-    public XRRayInteractor leftRay;
-    public XRRayInteractor rightRay;
-
     void Update()
     {
-        bool isRightHovering = rightRay.TryGetHitInfo(out Vector3 RightPos, out Vector3 RightNormal, out int RightNumber, out bool RightValid);
+        bool isRightHovering = HandRayController.instance.IsRightHovering;
         
         rightTeleportation.SetActive(!isRightHovering && rightCancel.action.ReadValue<float>() == 0 && rightActivate.action.ReadValue<float>() > 0.1f);
 
-        bool isLeftHovering = leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
+        bool isLeftHovering = HandRayController.instance.IsLeftHovering;
 
         leftTeleportation.SetActive(!isLeftHovering && leftCancel.action.ReadValue<float>() == 0f && leftActivate.action.ReadValue<float>() > 0.1f);
     }

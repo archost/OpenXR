@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -953,12 +953,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 0}
   jointPoints:
   - {fileID: 2022987756}
   state: 3
   partData: {fileID: 11400000, guid: 2e606187a995f5446b46325d630cea7e, type: 2}
-  action: 0
 --- !u!54 &509394376
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1100,11 +1098,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 919132148543460794}
   jointPoints: []
   state: 0
   partData: {fileID: 11400000, guid: 23b741f97fd40db49be96f277a6fb0fc, type: 2}
-  action: 0
 --- !u!114 &592849574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2184,11 +2180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 0}
   jointPoints: []
   state: 0
   partData: {fileID: 11400000, guid: 23b741f97fd40db49be96f277a6fb0fc, type: 2}
-  action: 0
 --- !u!54 &1693150711
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2276,12 +2270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 0}
   jointPoints:
   - {fileID: 1104324526}
   state: 3
   partData: {fileID: 11400000, guid: 2e606187a995f5446b46325d630cea7e, type: 2}
-  action: 0
 --- !u!114 &1953318995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2453,12 +2445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 0}
   jointPoints:
   - {fileID: 1410071902}
   state: 3
   partData: {fileID: 11400000, guid: 2ca98ee1597eb9c4e867a876c2a036d5, type: 2}
-  action: 0
 --- !u!54 &2029468438
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2654,6 +2644,7 @@ GameObject:
   - component: {fileID: 2074664221}
   - component: {fileID: 2074664215}
   - component: {fileID: 2074664220}
+  - component: {fileID: 2074664223}
   - component: {fileID: 2074664222}
   m_Layer: 0
   m_Name: PartTest
@@ -2770,11 +2761,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c523359d898d0041abd78185e838c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  installedSound: {fileID: 0}
   jointPoints: []
   state: 0
   partData: {fileID: 11400000, guid: e8dbd8ab8718ec743af9b869e6a1cda3, type: 2}
-  action: 0
 --- !u!54 &2074664221
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2791,7 +2780,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &2074664222
+--- !u!114 &2074664222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074664214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26961ce8b0c4e334a8946a5bb2aa60a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2074664223
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -2895,7 +2896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148543460790}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.334, y: 0.226, z: -3.3}
+  m_LocalPosition: {x: -1.334, y: 0.22600001, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3107,7 +3108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26961ce8b0c4e334a8946a5bb2aa60a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 919132148543460792}
 --- !u!82 &919132148543460794
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3850,7 +3850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5169593618866825459
 Transform:
   m_ObjectHideFlags: 0
