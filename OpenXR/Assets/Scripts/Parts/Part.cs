@@ -40,10 +40,11 @@ public class Part : MonoBehaviour
         Debug.Log($"Part attaching {part.PartID}, {offset}");
         part.transform.parent = transform;
         part.transform.localPosition = offset;
-        part.Attach();
+        part.transform.localEulerAngles = Vector3.zero;
+        part.Attach(part, offset);
     }
 
-    public void Attach()
+    public void Attach(Part part, Vector3 offset)
     {
         UpdateState(PartState.Fixed);
     }
@@ -70,7 +71,7 @@ public class Part : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         //TODO rework
-        if(animator!= null) animator.enabled = false;
+        if (animator != null) animator.enabled = false;
         //col = GetComponent<Collider>();
 
         outline = GetComponent<Outline>();
@@ -92,6 +93,7 @@ public class Part : MonoBehaviour
             p.gameObject.SetActive(false);
         }
         UpdateState(state);
+        
     }
 
     private void UpdateState(PartState newState)
