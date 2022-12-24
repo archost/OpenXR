@@ -15,7 +15,7 @@ public class Mediator
 
     public void Send(Command command, Collegue target)
     {
-        if (target == SCP)
+        if (command is CommandFinished)
         {
             SCP.Notify(command);
         }

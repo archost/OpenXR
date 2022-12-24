@@ -23,15 +23,30 @@ public class JointPoint : MonoBehaviour
         col = GetComponent<Collider>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out Part p))
         {
             if (p.PartID == suitablePartID)
             {
-                OnPartAttached?.Invoke(p, transform.localPosition + offset);
-                gameObject.SetActive(false);
+                if ((!HandRayController.instance.IsLeftHolding && !HandRayController.instance.IsRightHolding))
+                {
+                    OnPartAttached?.Invoke(p, transform.localPosition + offset);
+                    gameObject.SetActive(false);
+                }
             }
-        } 
+        }
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.TryGetComponent(out Part p))
+    //    {
+    //        if (p.PartID == suitablePartID)
+    //        {
+    //            OnPartAttached?.Invoke(p, transform.localPosition + offset);
+    //            gameObject.SetActive(false);
+    //        }
+    //    } 
+    //}
 }

@@ -12,6 +12,12 @@ public class HandRayController : MonoBehaviour
     public XRRayInteractor leftRay;
     public XRRayInteractor rightRay;
 
+    public InputActionProperty rightActivate;
+    public InputActionProperty leftActivate;
+
+    public InputActionProperty leftCancel;
+    public InputActionProperty rightCancel;
+
     private void Awake()
     {
         if (instance != null)
@@ -24,5 +30,9 @@ public class HandRayController : MonoBehaviour
     public bool IsRightHovering => rightRay.TryGetHitInfo(out Vector3 RightPos, out Vector3 RightNormal, out int RightNumber, out bool RightValid);
 
     public bool IsLeftHovering => leftRay.TryGetHitInfo(out Vector3 leftPos, out Vector3 leftNormal, out int leftNumber, out bool leftValid);
+
+    public bool IsRightHolding => rightActivate.action.ReadValue<float>() > 0.1f;
+
+    public bool IsLeftHolding => leftActivate.action.ReadValue<float>() > 0.1f;
 
 }

@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Outline), typeof(Rigidbody))]
 public class Part : MonoBehaviour
 {
     private Outline outline;
     private Rigidbody rb;
-    private Animator animator;
+    private AudioSource audioSource;
     //private Collider col;
+    private PartAnimationController animationController;
 
-    public AudioSource installedSound;
+    public XRGrabInteractable grabInteractable { get; private set; }
+
+    private PartPresenter partPresenter;
+
     public int PartID { get; private set; }
 
     [SerializeField]
@@ -22,9 +27,6 @@ public class Part : MonoBehaviour
 
     [SerializeField]
     private PartData partData;
-
-    [SerializeField]
-    private int action;
 
     public void ToogleJointPoint(int index)
     {
@@ -37,28 +39,26 @@ public class Part : MonoBehaviour
 
     public void AttachPart(Part part, Vector3 offset)
     {
-        Debug.Log($"Part attaching {part.PartID}, {offset}");
+        Debug.Log($"Part attaching {part.PartID}");
+        if (part.grabInteractable != null) part.grabInteractable.enabled = false;
         part.transform.parent = transform;
         part.transform.localPosition = offset;
         part.transform.localEulerAngles = Vector3.zero;
-        part.Attach(part, offset);
+        part.Attach();
     }
 
-    public void Attach(Part part, Vector3 offset)
+    public void Attach()
     {
+        
         UpdateState(PartState.Fixed);
-        if (animator != null) animator.enabled = true;
+        if (animationController != null) animationController.ToogleAnimator();
     }
 
     public void Install()
     {
         UpdateState(PartState.Installed);
-        installedSound.Play();
-    }
-
-    private void Update()
-    {
-
+        if (audioSource != null) audioSource.Play();
+        //partPresenter.Send(new CommandFinished(this.partPresenter), null);
     }
 
     [ContextMenu("Test")]
@@ -70,10 +70,16 @@ public class Part : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        //TODO rework
-        if (animator != null) animator.enabled = false;
+        audioSource = GetComponent<AudioSource>();
+        animationController = GetComponent<PartAnimationController>();
+        grabInteractable = GetComponent<XRGrabInteractable>();
         //col = GetComponent<Collider>();
+
+        //!!!!!!!!!!!!!!
+        partPresenter = new PartPresenter(null);
+        //!!!!!!!!!!!!!!
+        partPresenter.OnJointPointToogle += ToogleJointPoint;
+
 
         outline = GetComponent<Outline>();
         outline.OutlineColor = ProjectPreferences.instance.outlineColor;
@@ -83,18 +89,19 @@ public class Part : MonoBehaviour
         {
             Debug.LogError("Part has null PartData!", this.gameObject);
             PartID = 0;
+            
         }
         else
         {
             PartID = partData.ID;
-            
+
         }
         foreach (var p in jointPoints)
         {
             p.gameObject.SetActive(false);
         }
         UpdateState(state);
-        
+
     }
 
     private void UpdateState(PartState newState)

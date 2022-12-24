@@ -46,6 +46,7 @@ public class PartAnimationController : MonoBehaviour
         {
             //костыль 10/10
             animator.speed = 1;
+            
         }
         else
         {
