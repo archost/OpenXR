@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a072375b247ad054a85b5c27a477a256, type: 3}
   m_Name: Shaft
   m_EditorClassIdentifier: 
-  ID: 201
+  ID: 2
   PartName: 
   Description: 

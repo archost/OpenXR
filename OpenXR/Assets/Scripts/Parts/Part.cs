@@ -47,6 +47,7 @@ public class Part : MonoBehaviour
     public void Attach(Part part, Vector3 offset)
     {
         UpdateState(PartState.Fixed);
+        if (animator != null) animator.enabled = true;
     }
 
     public void Install()
