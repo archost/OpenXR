@@ -12,6 +12,8 @@ public class Part : MonoBehaviour
     //private Collider col;
     private PartAnimationController animationController;
 
+    private PartPresenter partPresenter;
+
     public int PartID { get; private set; }
 
     [SerializeField]
@@ -65,6 +67,12 @@ public class Part : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animationController = GetComponent<PartAnimationController>();
         //col = GetComponent<Collider>();
+
+        //!!!!!!!!!!!!!!
+        partPresenter = new PartPresenter(null);
+        //!!!!!!!!!!!!!!
+        partPresenter.OnJointPointToogle += ToogleJointPoint;
+
 
         outline = GetComponent<Outline>();
         outline.OutlineColor = ProjectPreferences.instance.outlineColor;
