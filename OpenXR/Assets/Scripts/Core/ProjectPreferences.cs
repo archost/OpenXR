@@ -10,6 +10,9 @@ public class ProjectPreferences : MonoBehaviour
     public Color outlineColor;
     public float outlineWidth = 2f;
 
+    [Header("Testing Options")]
+    public bool VRTesting = false;
+
     private void Awake()
     {
         if (instance != null)

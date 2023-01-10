@@ -6,47 +6,45 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Collider))]
 public class JointPoint : MonoBehaviour
 {
-    private Collider col;
-
-    public bool IsEnabled { get; private set; }
+    private bool IsVR;
 
     [SerializeField]
-    private int suitablePartID;
+    private PartData suitablePart;
 
     [SerializeField]
-    private Vector3 offset = Vector3.zero;
+    private Vector3 fixedPosition = Vector3.zero;
 
-    public UnityAction<Part, Vector3> OnPartAttached;
+    [SerializeField]
+    private Quaternion fixedRotation = Quaternion.identity;
 
-    private void Awake()
+    public UnityAction<Part, Vector3, Quaternion, bool> OnPartAttached;
+
+    private bool IsNotHolding => !HandRayController.instance.IsLeftHolding && !HandRayController.instance.IsRightHolding;
+
+    private void Start()
     {
-        col = GetComponent<Collider>();
+        IsVR = ProjectPreferences.instance.VRTesting;
+        if (GetComponent<Collider>().isTrigger == false) Debug.LogError("Collider is not trigger!", gameObject);
+        if (suitablePart == null) Debug.LogError("No suitable PartData found!", gameObject);
+    }
+
+    public void ForceAttach(Part p, bool toFix = true)
+    {
+        OnPartAttached?.Invoke(p, fixedPosition, fixedRotation, toFix);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out Part p))
         {
-            if (p.PartID == suitablePartID)
+            if (p.PartID == suitablePart.ID)
             {
-                if ((!HandRayController.instance.IsLeftHolding && !HandRayController.instance.IsRightHolding))
+                if (!IsVR || (IsNotHolding && IsVR))
                 {
-                    OnPartAttached?.Invoke(p, transform.localPosition + offset);
-                    gameObject.SetActive(false);
+                    ForceAttach(p);
                 }
             }
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.TryGetComponent(out Part p))
-    //    {
-    //        if (p.PartID == suitablePartID)
-    //        {
-    //            OnPartAttached?.Invoke(p, transform.localPosition + offset);
-    //            gameObject.SetActive(false);
-    //        }
-    //    } 
-    //}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Outline), typeof(Rigidbody))]
+[RequireComponent(typeof(Outline), typeof(Rigidbody), typeof(PartAttacher))]
 public class Part : MonoBehaviour
 {
     private Outline outline;
@@ -13,14 +13,12 @@ public class Part : MonoBehaviour
     //private Collider col;
     private PartAnimationController animationController;
 
-    public XRGrabInteractable grabInteractable { get; private set; }
+    public XRGrabInteractable GrabInteractable { get; private set; }
 
     private PartPresenter partPresenter;
+    private PartAttacher partAttacher;
 
-    public int PartID { get; private set; }
-
-    [SerializeField]
-    private List<JointPoint> jointPoints;
+    public int PartID { get; private set; }  
 
     [SerializeField]
     private PartState state;
@@ -28,60 +26,45 @@ public class Part : MonoBehaviour
     [SerializeField]
     private PartData partData;
 
-    public void ToogleJointPoint(int index)
-    {
-        if (index >= 0 && index < jointPoints.Count)
-        {
-            jointPoints[index].gameObject.SetActive(true);
-            jointPoints[index].OnPartAttached += AttachPart;
-        }
-    }
-
-    public void AttachPart(Part part, Vector3 offset)
-    {
-        Debug.Log($"Part attaching {part.PartID}");
-        if (part.grabInteractable != null) part.grabInteractable.enabled = false;
-        part.transform.parent = transform;
-        part.transform.localPosition = offset;
-        part.transform.localEulerAngles = Vector3.zero;
-        part.Attach();
-    }
-
     public void Attach()
-    {
-        
+    {        
         UpdateState(PartState.Fixed);
         if (animationController != null) animationController.ToogleAnimator();
+        else Install();
     }
 
     public void Install()
     {
         UpdateState(PartState.Installed);
         if (audioSource != null) audioSource.Play();
-        //partPresenter.Send(new CommandFinished(this.partPresenter), null);
+        partPresenter.Send(new CommandFinished(this.partPresenter), null);
     }
 
     [ContextMenu("Test")]
     public void Test()
     {
-        ToogleJointPoint(0);
+        partAttacher.ToogleJointPoint(0);
+    }
+
+    public PartPresenter InitPartPresenter(Mediator mediator)
+    {
+        partPresenter = new PartPresenter(mediator);
+        partPresenter.OnJointPointToogle += partAttacher.ToogleJointPoint;
+        return partPresenter;
+    }
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        animationController = GetComponent<PartAnimationController>();
+        GrabInteractable = GetComponent<XRGrabInteractable>();
+        rb = GetComponent<Rigidbody>();
+        outline = GetComponent<Outline>();
+        partAttacher = GetComponent<PartAttacher>();
     }
 
     private void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        audioSource = GetComponent<AudioSource>();
-        animationController = GetComponent<PartAnimationController>();
-        grabInteractable = GetComponent<XRGrabInteractable>();
-        //col = GetComponent<Collider>();
-
-        //!!!!!!!!!!!!!!
-        partPresenter = new PartPresenter(null);
-        //!!!!!!!!!!!!!!
-        partPresenter.OnJointPointToogle += ToogleJointPoint;
-
-
-        outline = GetComponent<Outline>();
+    {       
         outline.OutlineColor = ProjectPreferences.instance.outlineColor;
         outline.OutlineWidth = ProjectPreferences.instance.outlineWidth;
 
@@ -96,10 +79,7 @@ public class Part : MonoBehaviour
             PartID = partData.ID;
 
         }
-        foreach (var p in jointPoints)
-        {
-            p.gameObject.SetActive(false);
-        }
+        
         UpdateState(state);
 
     }

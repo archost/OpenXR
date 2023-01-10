@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BoardScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject stageDisplayPrefab;
+    private StageDisplay stageDisplayPrefab;
 
     [SerializeField]
     private TextMeshProUGUI curStageText;
@@ -35,6 +35,8 @@ public class BoardScript : MonoBehaviour
 
     private void Awake()
     {
+        if (stageDisplayPrefab == null) Debug.LogError("You forgot to update prefab");
+
         stageController.OnStageSwitch += OnStageSwitch;
         stageDisplayHeight = (stageDisplayPrefab.transform as RectTransform).sizeDelta.y;
         scrollInitHeight = scrollContainer.sizeDelta.y;
@@ -84,7 +86,7 @@ public class BoardScript : MonoBehaviour
     {
         if (currStage != null)
         {
-            StageDisplay sd = Instantiate(stageDisplayPrefab, scrollContainer).GetComponent<StageDisplay>();
+            StageDisplay sd = Instantiate(stageDisplayPrefab, scrollContainer);
             sd.Init(currStage);
             ResetScrollPosition();
         }

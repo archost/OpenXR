@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mediator
 {
-    public StageControllerPresenter SCP {get; set;}
+    public Collegue StageControllerPresenter {get; set;}
 
     private List<PartPresenter> parts = new List<PartPresenter>();
 
@@ -17,7 +17,7 @@ public class Mediator
     {
         if (command is CommandFinished)
         {
-            SCP.Notify(command);
+            StageControllerPresenter.Notify(command);
         }
         else
         {

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(PartFactory))]
 public class StageController : MonoBehaviour
 {
     private Mediator mediator;
     private StageControllerPresenter scp;
 
     public List<Stage> stages;
+
+    private PartFactory partFactory;
 
     private int currentStageIndex = -1;
 
@@ -27,10 +30,14 @@ public class StageController : MonoBehaviour
 
     private void Start()
     {
+        partFactory = GetComponent<PartFactory>();
+
         mediator = new Mediator();
         scp = new StageControllerPresenter(mediator);
-        mediator.SCP = scp;
+        mediator.StageControllerPresenter = scp;
         scp.OnPartFinished += ProcessInstallFinished;
+
+        partFactory.SpawnParts(mediator);
 
         if (stages.Count != 0)
         {
