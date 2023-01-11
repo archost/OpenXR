@@ -1035,18 +1035,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stages:
-  - {fileID: 11400000, guid: 9a6d77f91f0b782439be2492fc5b5ff8, type: 2}
-  - {fileID: 11400000, guid: 57c5dbdb652873d4fbc1bbefea9a44ab, type: 2}
-  - {fileID: 11400000, guid: 4b12b26ce1b63e44a90f2499a955c603, type: 2}
-  - {fileID: 11400000, guid: 3c7a2e75ba475c044a73b9ceeab6105e, type: 2}
-  - {fileID: 11400000, guid: 3d9c850303d49364db560f2b220c9c1b, type: 2}
-  - {fileID: 11400000, guid: 37aaa123367534d4aac54f32288ad6fd, type: 2}
-  - {fileID: 11400000, guid: 2f198def363a59c45b8962feba7e0171, type: 2}
-  - {fileID: 11400000, guid: aaab527eacad54e4a91effbd6c72344b, type: 2}
-  - {fileID: 11400000, guid: 80cc4dd46e884b84db31c10dff88a586, type: 2}
-  - {fileID: 11400000, guid: 9e2f14baec4699643af19eb45ede6360, type: 2}
-  - {fileID: 11400000, guid: c8f2ea39729690f448ad34fc8cfe9927, type: 2}
-  - {fileID: 11400000, guid: cdbd836968e29cb43817cd6846e3d5a0, type: 2}
+  - {fileID: 11400000, guid: f7097405da835194a9b01ea4b65d09be, type: 2}
 --- !u!4 &858820082
 Transform:
   m_ObjectHideFlags: 0
@@ -1275,6 +1264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointPoints:
   - {fileID: 690647897}
+  isAssemblyAttacher: 1
 --- !u!1 &1094847622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointPoints:
   - {fileID: 626179515}
+  isAssemblyAttacher: 0
 --- !u!1 &1557441255
 GameObject:
   m_ObjectHideFlags: 0

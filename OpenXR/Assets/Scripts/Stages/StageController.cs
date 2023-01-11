@@ -41,9 +41,7 @@ public class StageController : MonoBehaviour
 
         if (stages.Count != 0)
         {
-            // set initial positions for objects
-            currentStageIndex = 0;
-            OnStageSwitch?.Invoke(CurrentStage);
+            NextStage();
         }
     }
 
@@ -52,7 +50,11 @@ public class StageController : MonoBehaviour
         if (command.Sender is PartPresenter)
         {
             var pp = command.Sender as PartPresenter;
-            Debug.Log($"Attached {pp.PartData.name}!");
+            if (pp.PartData.ID == CurrentStage.target.ID)
+            {
+                Debug.Log($"Successfully completed \"{CurrentStage.description}\"!");
+                NextStage();
+            }
         }
     }
 
@@ -61,6 +63,7 @@ public class StageController : MonoBehaviour
         if (currentStageIndex < stages.Count)
         {
             currentStageIndex++;
+            if (CurrentStage != null) partFactory.ToogleSuitablePoints(CurrentStage.target);
             OnStageSwitch?.Invoke(CurrentStage);
         }
     }

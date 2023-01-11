@@ -8,8 +8,8 @@ public class JointPoint : MonoBehaviour
 {
     private bool IsVR;
 
-    [SerializeField]
-    private PartData suitablePart;
+    //!
+    public PartData suitablePart;
 
     [SerializeField]
     private Vector3 fixedPosition = Vector3.zero;

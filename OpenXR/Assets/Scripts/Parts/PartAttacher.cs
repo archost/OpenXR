@@ -10,6 +10,9 @@ public class PartAttacher : MonoBehaviour
     [SerializeField]
     private List<JointPoint> jointPoints;
 
+    [SerializeField]
+    private bool isAssemblyAttacher;
+
     [ContextMenu("Test")]
     public void Test()
     {
@@ -23,6 +26,20 @@ public class PartAttacher : MonoBehaviour
             jointPoints[index].gameObject.SetActive(true);
             //jointPoints[index].OnPartAttached += AttachPart;
         }
+    }
+
+    public bool TryToogleJointPointByPart(bool isAssembly, PartData data)
+    {
+        if (isAssembly ^ isAssemblyAttacher == true) return false;
+        for (int i = 0; i < jointPoints.Count; i++)
+        {
+            if (jointPoints[i].suitablePart.ID == data.ID)
+            {
+                ToogleJointPoint(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void AttachPart(Part part, Vector3 offset, Quaternion rotation, bool toBeFixed)
