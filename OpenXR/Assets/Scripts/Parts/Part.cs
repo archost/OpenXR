@@ -48,7 +48,7 @@ public class Part : MonoBehaviour
 
     public PartPresenter InitPartPresenter(Mediator mediator)
     {
-        partPresenter = new PartPresenter(mediator);
+        partPresenter = new PartPresenter(mediator, partData);
         partPresenter.OnJointPointToogle += partAttacher.ToogleJointPoint;
         return partPresenter;
     }

@@ -7,6 +7,12 @@ public class Stage : ScriptableObject
 
     public string description;
 
-    [Header("Work in progress")]
-    public GameObject AttachedObject;
+    public PartData target;
+
+    public JointPoint destination;
+
+    [Header("Optional")]
+    public PartData destinationPart;
+
+    public int jointPointIndex;
 }

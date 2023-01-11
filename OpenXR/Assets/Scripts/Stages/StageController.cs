@@ -49,7 +49,11 @@ public class StageController : MonoBehaviour
 
     private void ProcessInstallFinished(CommandFinished command)
     {
-        Debug.Log("Got installation finished");
+        if (command.Sender is PartPresenter)
+        {
+            var pp = command.Sender as PartPresenter;
+            Debug.Log($"Attached {pp.PartData.name}!");
+        }
     }
 
     public void NextStage()

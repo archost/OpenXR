@@ -7,7 +7,12 @@ public class PartPresenter : Collegue
 {
     public UnityAction<int> OnJointPointToogle;
 
-    public PartPresenter(Mediator mediator) : base(mediator) { }
+    public PartData PartData { get; private set; }
+
+    public PartPresenter(Mediator mediator, PartData pd) : base(mediator)
+    {
+        PartData = pd;
+    }
 
     public override void Send(Command command, Collegue target)
     {
