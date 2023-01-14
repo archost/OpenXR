@@ -16,12 +16,18 @@ public class Player : MonoBehaviour
 
     public bool IsReady { get; private set; }
 
+<<<<<<< HEAD
     AudioSource a_s;
 
     private void Start()
     {
         IsReady = false;
         a_s = GetComponent<AudioSource>();
+=======
+    private void Start()
+    {
+        IsReady = false;
+>>>>>>> 2db949602788e6ad83d0a0067859f8e7b24e5b8a
     }
 
     [ContextMenu("Equip Everything")]
@@ -36,7 +42,10 @@ public class Player : MonoBehaviour
     public void AddItem(string item)
     {
         Items.Add(item);
+<<<<<<< HEAD
         a_s.Play();
+=======
+>>>>>>> 2db949602788e6ad83d0a0067859f8e7b24e5b8a
 
         if (!IsReady && IsFullyEquipped())
         {
