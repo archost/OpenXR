@@ -14,6 +14,7 @@ using UnityEngine.Events;
 using System;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 namespace VRKeys {
 
@@ -125,16 +126,27 @@ namespace VRKeys {
 
 		private Layout layout;
 
+		[SerializeField]
+		private Transform leftHandController;
+
+		[SerializeField] 
+		private Transform rightHandController;
+
 		/// <summary>
 		/// Initialization.
 		/// </summary>
 		private IEnumerator Start () {
-			XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
+			var leftHandDevices = new List<UnityEngine.XR.InputDevice>();
+            UnityEngine.XR.InputDevices.GetDevicesAtXRNode(UnityEngine.XR.XRNode.LeftHand, leftHandDevices);
+
+            XRDevice.SetTrackingSpaceType (TrackingSpaceType.RoomScale);
+
 			
 
 			playerSpace = new GameObject ("Play Space");
-			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
-			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+
+			playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+			playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
 
 			leftHand = new GameObject ("Left Hand");
 			rightHand = new GameObject ("Right Hand");
@@ -151,28 +163,28 @@ namespace VRKeys {
 			initialized = true;
 		}
 
-		private void Update () {
-			//playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
-			//playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
+		//private void Update () {
+		//	playerSpace.transform.localPosition = InputTracking.GetLocalPosition (XRNode.TrackingReference);
+		//	playerSpace.transform.localRotation = InputTracking.GetLocalRotation (XRNode.TrackingReference);
 
-			leftHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.LeftHand);
-			leftHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.LeftHand);
+		//	leftHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.LeftHand);
+		//	leftHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.LeftHand);
 			
 
-			rightHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.RightHand);
-			rightHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.RightHand);
-		}
+		//	rightHand.transform.localPosition = InputTracking.GetLocalPosition (XRNode.RightHand);
+		//	rightHand.transform.localRotation = InputTracking.GetLocalRotation (XRNode.RightHand);
+		//}
 
 		private void PositionAndAttachMallets () {
 			transform.SetParent (playerSpace.transform, false);
 			transform.localPosition = positionRelativeToUser;
 
-			leftMallet.transform.SetParent (leftHand.transform);
+			leftMallet.transform.SetParent (leftHandController.transform);
 			leftMallet.transform.localPosition = Vector3.zero;
 			leftMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
 			leftMallet.SetActive (true);
 
-			rightMallet.transform.SetParent (rightHand.transform);
+			rightMallet.transform.SetParent (rightHandController.transform);
 			rightMallet.transform.localPosition = Vector3.zero;
 			rightMallet.transform.localRotation = Quaternion.Euler (90f, 0f, 0f);
 			rightMallet.SetActive (true);
