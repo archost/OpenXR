@@ -998,16 +998,52 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 584823845}
+        m_TargetAssemblyTypeName: VRKeys.Keyboard, Assembly-CSharp
+        m_MethodName: Disable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 584823845}
+        m_TargetAssemblyTypeName: VRKeys.Keyboard, Assembly-CSharp
+        m_MethodName: Enable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnDeselect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 584823845}
+        m_TargetAssemblyTypeName: VRKeys.Keyboard, Assembly-CSharp
+        m_MethodName: Disable
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTextSelection:
     m_PersistentCalls:
       m_Calls: []
@@ -4625,6 +4661,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8679726630613389619, guid: 1dc2bed771f54fe4c8474e786225f215,
         type: 3}
+      propertyPath: displayText
+      value: 
+      objectReference: {fileID: 604003664}
+    - target: {fileID: 8679726630613389619, guid: 1dc2bed771f54fe4c8474e786225f215,
+        type: 3}
       propertyPath: leftHandController
       value: 
       objectReference: {fileID: 1148516952}
@@ -4790,6 +4831,18 @@ PrefabInstance:
       objectReference: {fileID: 1224601976}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dc2bed771f54fe4c8474e786225f215, type: 3}
+--- !u!114 &584823845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8679726630613389619, guid: 1dc2bed771f54fe4c8474e786225f215,
+    type: 3}
+  m_PrefabInstance: {fileID: 584823844}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb08f495a9bc93a46b97e507bf9be1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &590868075
 GameObject:
   m_ObjectHideFlags: 0
