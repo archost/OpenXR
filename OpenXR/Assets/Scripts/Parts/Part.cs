@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(Outline), typeof(Rigidbody), typeof(PartAttacher))]
+[RequireComponent(typeof(Rigidbody), typeof(PartAttacher))]
 public class Part : MonoBehaviour
 {
     private Outline outline;
@@ -59,12 +59,13 @@ public class Part : MonoBehaviour
         animationController = GetComponent<PartAnimationController>();
         GrabInteractable = GetComponent<XRGrabInteractable>();
         rb = GetComponent<Rigidbody>();
-        outline = GetComponent<Outline>();
+        outline = gameObject.AddComponent<Outline>();
         partAttacher = GetComponent<PartAttacher>();
     }
 
     private void Start()
-    {       
+    {        
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineColor = ProjectPreferences.instance.outlineColor;
         outline.OutlineWidth = ProjectPreferences.instance.outlineWidth;
 

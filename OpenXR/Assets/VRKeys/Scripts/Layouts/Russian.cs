@@ -9,7 +9,7 @@ namespace VRKeys.Layouts
     {
         public Russian()
         {
-            placeholderMessage = "Нажмите на клавиши для начала ввода";
+            placeholderMessage = "Нажмите на клавиши для ввода";
 
             spaceButtonLabel = "Пробел";
 
@@ -19,7 +19,7 @@ namespace VRKeys.Layouts
 
             shiftButtonLabel = "Shift";
 
-            backspaceButtonLabel = "Назад";
+            backspaceButtonLabel = "Стереть";
 
             clearButtonLabel = "Очистить";
 
@@ -35,9 +35,9 @@ namespace VRKeys.Layouts
 
             row3Shift = new string[] { "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", "Ж", "Э" };
 
-            row4Keys = new string[] { "я", "ч", "с", "м", "и", "т", "ь", "б", "ю" };
+            row4Keys = new string[] { "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "." };
 
-            row4Shift = new string[] { "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю" };
+            row4Shift = new string[] { "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", "/" };
 
             row1Offset = 0.16f;
 
