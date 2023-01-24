@@ -19,6 +19,9 @@ public class BoardScript : MonoBehaviour
     private TextMeshProUGUI timerText;
 
     [SerializeField]
+    private TextMeshProUGUI ProfileInfoText;
+
+    [SerializeField]
     private StageController stageController;
 
     [SerializeField]
@@ -102,5 +105,11 @@ public class BoardScript : MonoBehaviour
             orderText.text = stage.ID.ToString();
             currStage = stage;
         }        
+    }
+
+    public void UpdateName()
+    {
+        var pl = FindObjectOfType<Player>();
+        ProfileInfoText.text = $"Обучающийся:\n{pl.PlayerName}\n\nГруппа:\n{pl.PlayerGroup}";
     }
 }

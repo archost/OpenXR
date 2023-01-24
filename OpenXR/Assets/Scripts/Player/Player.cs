@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,15 +13,23 @@ public class Player : MonoBehaviour
     private List<string> expectedItems = new List<string>();
 
     [SerializeField]
-    private UnityEvent OnSecurityEquipped;
+    private UnityEvent OnReady;
+
+    [SerializeField]
+    private WelcomingBoard wboard;
+
+    public string PlayerName { get; private set; }
+
+    public string PlayerGroup { get; private set; }
 
     public bool IsReady { get; private set; }
 
-    AudioSource a_s;
+    private AudioSource a_s;
 
     private void Start()
     {
         IsReady = false;
+        wboard.OnFieldSubmit += CheckReady;
         a_s = GetComponent<AudioSource>();
     }
 
@@ -37,12 +46,7 @@ public class Player : MonoBehaviour
     {
         Items.Add(item);
         a_s.Play();
-
-        if (!IsReady && IsFullyEquipped())
-        {
-            IsReady = true;
-            OnSecurityEquipped?.Invoke();
-        }
+        CheckReady();
     }
 
     private bool IsFullyEquipped()
@@ -57,4 +61,16 @@ public class Player : MonoBehaviour
         return true;
     }
 
+    private void CheckReady()
+    {
+        if (IsReady) return;
+        if (IsFullyEquipped() && wboard.IsFieldsValid)
+        {
+            IsReady = true;
+            wboard.GetFieldsValues(out string s1, out string s2);
+            PlayerName = s1;
+            PlayerGroup = s2;
+            OnReady?.Invoke();
+        }
+    }
 }
