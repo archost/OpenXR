@@ -99,6 +99,7 @@ public class WelcomingBoard : MonoBehaviour
                 item.SetActive(false);
             }
             checkers[toogledField].SetActive(true);
+            keyboard.text = "";
             OnFieldSubmit?.Invoke();
             keyboard.Disable();
             toogledField = -1;            
